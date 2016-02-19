@@ -1,8 +1,6 @@
 var express = require('express');
 var app = express();
 
-
-
 app.get('/', function(request, response) {
     response.write("<h1>Welcome to our amazing website</h1>");
     response.end();
