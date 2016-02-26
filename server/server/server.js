@@ -1,30 +1,39 @@
+// Declaration and imports--- EAP/B.C.F.L.M.
 var express = require('express');
 var app = express();
+var path = require('path');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var favicon = require('favicon');
+var logger = require('morgan');
+var mongoose = require('mongoose');
 
-app.get('/', function(request, response) {
-    response.write("<h1>Welcome to our amazing website</h1>");
-    response.end();
-});
+// App.set view engine
+app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'views'));
 
-app.get('/about', function(request, response) {
-    response.write("<h1>About Us!</h1>");
-    response.end();
-});
+//App.use the C.L.E.B.B
+app.use(cookieParser());
+app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.get('/api/users', function(request, response) {
-    response.json({ "message": "We could display a list of users here for an api" });
-    response.end();
-});
+//Import routes
+var routes = require('./routes/index');   //created by express
+var users = require('./routes/users');    //created by express
+var videos  = require('./routes/videos');  // This is what I created
 
-app.post('/api/user/', function(request, response) {
-    response.json({ "message": "An example post request" });
-    response.end();
-});
+// App.use the routes
+app.use('/', routes);
+app.use('/users', users);
+app.use('/api/videos', videos);
 
-app.delete('/api/user/:id', function(request, response) {
-    response.json({ "message": "An example delete request for a certain user" });
-    response.end();
-});
+
+
+module.exports = app;
+
+
 
 app.listen(3000);
 console.log("Visit your web page at http://localhost:3000");
