@@ -30,10 +30,5 @@ app.use('/users', users);
 app.use('/api/videos', videos);
 
 
-
-module.exports = app;
-
-
-
 app.listen(3000);
 console.log("Visit your web page at http://localhost:3000");

@@ -77,4 +77,5 @@ var app = angular
                     Videos.delete({id: $routeParams.id}, function (video) {
                         $location.path('/');
                     });
-                ]);
+                }
+            ])
