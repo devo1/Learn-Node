@@ -1,34 +1,31 @@
-// Declaration and imports--- EAP/B.C.F.L.M.
-var express = require('express');
-var app = express();
-var path = require('path');
+// Import modules--- B.C.E.F.L.M.P
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var favicon = require('favicon');
+var express = require('express');
+var favicon = require('serve-favicon');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var path = require('path');
 
-// App.set view engine
+//Import routes
+var videos  = require('./routes/videos');
+
+// Setup app & view engine
+var app = express();
 app.set('view engine', 'jade');
 app.set('views', path.join(__dirname, 'views'));
 
-//App.use the C.L.E.B.B
+//Use apps C.L.E.B.B
 app.use(cookieParser());
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//Import routes
-var routes = require('./routes/index');   //created by express
-var users = require('./routes/users');    //created by express
-var videos  = require('./routes/videos');  // This is what I created
 
-// App.use the routes
-app.use('/', routes);
-app.use('/users', users);
+// Use the route
 app.use('/api/videos', videos);
 
 
 app.listen(3000);
-console.log("Visit your web page at http://localhost:3000");
+console.log('Visit your web page at http://localhost:3000');

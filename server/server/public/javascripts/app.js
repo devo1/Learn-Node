@@ -78,4 +78,4 @@ var app = angular
                         $location.path('/');
                     });
                 }
-            ])
+            ]);

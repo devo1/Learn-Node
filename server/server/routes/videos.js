@@ -1,12 +1,13 @@
-//Declaration and mongodb connection
+//Declaration 
 var express = require('express');
+var mongoose = require(mongoose);
 var router = express.Router();
 
-var mongoose = require(mongoose);
-var db = mongoose('localhost:27017/test');
+//Connect to DB
+mongoose.connect('mongodb://localhost:27017/test');
 
 // Display all videos
-router.get('/', function(req, res, next){
+router.get('/', function(req, res){
     var collection = db.get('videos');
         collection.find({},
             function(err, videos){
@@ -15,8 +16,8 @@ router.get('/', function(req, res, next){
             });
     });
 
-//Search for a particular video
-router.get('/:id', function(req, res, next){
+// Search for a particular video
+router.get('/:id', function(req, res){
     var collection = db.get('videos');
         collection.findOne({ _id: req.params.id},
             function(err, video){
@@ -26,7 +27,7 @@ router.get('/:id', function(req, res, next){
     });
 
 // Delete a video
-router.delete('/:id', function(err, res, next){
+router.delete('/:id', function(err, res){
     var collection = db.get('videos');
     collection.remove({ _id: req.params.id},
         function(err, video){
@@ -36,7 +37,7 @@ router.delete('/:id', function(err, res, next){
 });
 
 // Add a new video
-router.post('/', function (req, res, next){
+router.post('/', function (req, res){
     var collection = db.get('videos');
         collection.insert({title: req.body.title, description: req.body.description},
             function(err, video) {
@@ -46,7 +47,7 @@ router.post('/', function (req, res, next){
     });
 
 // Edit a video
-router.put('/:id', function(req, res, next){
+router.put('/:id', function(req, res){
     var collection = db.get('videos');
         collection.update({ _id: req.params.id},
             {title: req.body.title, description: req.body.description},
@@ -55,9 +56,5 @@ router.put('/:id', function(req, res, next){
                 res.json(video);
             });
     });
-
-
-
-
 
 module.exports = router;
