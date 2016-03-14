@@ -65,17 +65,17 @@ var app = angular
             }]);
 
 // Controller: delete a video
-        app.controller('DeleteVideoCtrl', [$resource', '$location', '$routeParams',
-            function ($resource, $location, $routeParams) {
-                var Videos = $resource('/api/videos/:id');
+app.controller('DeleteVideoCtrl', ['$scope', '$resource', '$location', '$routeParams',
+    function($scope, $resource, $location, $routeParams) {
+        var Videos = $resource('/api/videos/:id');
 
-                Videos.get({id: $routeParams.id}, function (video) {
-                    vm.video = video;
-                });
+        Videos.get({id: $routeParams.id}, function (video) {
+            $scope.video = video;
+        });
 
-                vm.delete = function () {
-                    Videos.delete({id: $routeParams.id}, function (video) {
-                        $location.path('/');
-                    });
-                }
-            ]);
+        $scope.delete = function () {
+            Videos.delete({id: $routeParams.id}, function (video) {
+                $location.path('/');
+            });
+        }
+    }]);
