@@ -78,4 +78,5 @@ app.controller('DeleteVideoCtrl', ['$scope', '$resource', '$location', '$routePa
                 $location.path('/');
             });
         }
+    }
     }]);
